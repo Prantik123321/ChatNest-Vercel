@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ChatNest</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ===================== AUTH SCREEN ===================== -->
+<div id="auth-screen" class="card auth-card">
+  <div class="auth-brand">
+    <div class="brand-row">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <path d="M6 27C6 27 10 32 20 32C30 32 34 27 34 27" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M4 22C4 22 9 28 20 28C31 28 36 22 36 22" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round" opacity="0.55"/>
+        <path d="M8 18C8 18 12 24 20 24C28 24 32 18 32 18" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round" opacity="0.3"/>
+        <circle cx="17" cy="15" r="3.4" fill="#E07A5F"/>
+        <circle cx="23.5" cy="17" r="2.6" fill="#E07A5F" opacity="0.75"/>
+      </svg>
+      <span class="brand-name">ChatNest</span>
+    </div>
+    <p class="brand-tagline">A cozy corner for the conversations that matter. Register two accounts (or open a second browser tab) and message between them.</p>
+    <div class="brand-note">
+      Demo account — <strong>demo@chatnest.com</strong> / <strong>nestling6</strong><br/>
+      Prototype auth — please don't reuse a real password.
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-tabs">
+      <div class="auth-tab active" data-mode="login">Log in</div>
+      <div class="auth-tab" data-mode="register">Register</div>
+    </div>
+
+    <form id="login-form" class="auth-form">
+      <label>Email<input type="email" id="login-email" placeholder="you@example.com" required /></label>
+      <label>Password<input type="password" id="login-password" placeholder="••••••••" required /></label>
+      <div class="form-error" id="login-error"></div>
+      <button type="submit" class="btn btn-terracotta" id="login-btn">Log in</button>
+      <div class="form-switch">New here? <span data-switch="register">Create an account</span></div>
+    </form>
+
+    <form id="register-form" class="auth-form hidden">
+      <label>Full name<input type="text" id="register-name" placeholder="Jane Doe" required /></label>
+      <label>Email<input type="email" id="register-email" placeholder="you@example.com" required /></label>
+      <label>Password<input type="password" id="register-password" placeholder="At least 6 characters" required /></label>
+      <label>Confirm password<input type="password" id="register-confirm" placeholder="Repeat password" required /></label>
+      <div class="form-error" id="register-error"></div>
+      <button type="submit" class="btn btn-forest" id="register-btn">Create account</button>
+      <div class="form-switch">Already registered? <span data-switch="login">Log in</span></div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== CHAT APP SCREEN ===================== -->
+<div id="app-screen" class="card app-card hidden">
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+        <path d="M6 27C6 27 10 32 20 32C30 32 34 27 34 27" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M4 22C4 22 9 28 20 28C31 28 36 22 36 22" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round" opacity="0.55"/>
+        <path d="M8 18C8 18 12 24 20 24C28 24 32 18 32 18" stroke="#E07A5F" stroke-width="2.4" stroke-linecap="round" opacity="0.3"/>
+        <circle cx="17" cy="15" r="3.4" fill="#E07A5F"/>
+        <circle cx="23.5" cy="17" r="2.6" fill="#E07A5F" opacity="0.75"/>
+      </svg>
+      <span class="brand-name light">ChatNest</span>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search people" />
+      </div>
+    </div>
+
+    <div class="contact-list" id="contact-list"></div>
+
+    <div class="me-footer">
+      <div class="avatar" id="me-avatar"></div>
+      <div class="me-info">
+        <div class="me-name" id="me-name"></div>
+        <div class="me-email" id="me-email"></div>
+      </div>
+      <button class="btn-logout" id="logout-btn">Log out</button>
+    </div>
+  </div>
+
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-empty" id="chat-empty">
+      <div style="font-size:34px;">💬</div>
+      <span>Pick a person on the left to start chatting</span>
+    </div>
+
+    <div class="chat-active hidden" id="chat-active">
+      <div class="chat-header">
+        <button class="back-btn" id="back-btn">←</button>
+        <div class="avatar" id="active-avatar"></div>
+        <div class="chat-header-info">
+          <div class="chat-header-name" id="active-name"></div>
+          <div class="chat-header-email" id="active-email"></div>
+        </div>
+      </div>
+
+      <div class="banner hidden" id="banner">
+        <span id="banner-text"></span>
+        <span class="banner-close" id="banner-close">✕</span>
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="composer">
+        <input type="file" id="file-input" accept="image/*" class="hidden" />
+        <span class="icon composer-icon" id="attach-btn">📎</span>
+        <input type="text" id="draft-input" placeholder="Type a message" />
+        <button class="send-btn" id="send-btn">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
