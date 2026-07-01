@@ -1,0 +1,12 @@
+{
+  "name": "chatnest",
+  "version": "1.0.0",
+  "description": "ChatNest — a WhatsApp-style messaging app with a custom file-based database, built for Vercel (Node.js serverless functions + plain HTML/CSS/JS).",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}
